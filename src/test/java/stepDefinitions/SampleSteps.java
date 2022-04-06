@@ -30,6 +30,7 @@ public class SampleSteps {
     public void iAmonTheLocatorsPage() throws Throwable {
         driver.get("https://kristinek.github.io/site/examples/locators");
     }
+
     @Then("^I should see both locators page headers$")
     public void iShouuldSeeBothLocatorsPageHeaders() throws Throwable {
         assertEquals("Heading 1",
@@ -67,7 +68,7 @@ public class SampleSteps {
         driver.findElement(By.id("age")).sendKeys(String.valueOf(age));
     }
 
-    @Given("^I (?:am on|open) age page$")
+    @Given("^I (?:am on|open) page age$")
     public void iAmOnAgePage() throws Throwable {
         driver.get("https://kristinek.github.io/site/examples/age");
     }
@@ -118,4 +119,81 @@ public class SampleSteps {
     public void iAmOnActionPage() {
         driver.get("https://kristinek.github.io/site/examples/actions");
     }
+
+
+    @Then("^I see error: \"([^\"]*)\"$")
+    public void youHaventEnteredAnythingInAgeField(String message) throws Throwable {
+        assertEquals(message, driver.findElement(By.id("error")).getText());
+    }
+    @Then("^I am not navigated to age message page")
+    public void iAmNotNavigatedToAgePage()  throws Throwable {
+         assertTrue(driver.getCurrentUrl().contains("https://kristinek.github.io/site/examples/age"));}
+
+
+
+    @Given("^I (?:am on|open) age page feedback$")
+    public void iAmOnFeedbackAgePage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/provide_feedback");}
+    @When("^I enter feedback name: \"([^\"]*)\"$")
+    public void iEnterFeedbackName(String name) throws Throwable {
+        driver.findElement(By.id("fb_name")).clear();
+        driver.findElement(By.id("fb_name")).sendKeys(name);}
+    @And("^I enter feedback age: (\\d+)$")
+    public void iEnterFeedbackAge(int age) throws Throwable {
+        driver.findElement(By.id("fb_age")).sendKeys(String.valueOf(age));}
+
+    @And("^I click send feedback age$")
+    public void iClickSubmitFeedbackAge() throws Throwable {
+        driver.findElement(By.cssSelector("#fb_form > form > button")).click();}
+    @Then("^I see feedback name: \"([^\"]*)\"$")
+    public void iSeeFeedbackName(String name) throws Throwable {
+        assertEquals(name,driver.findElement(By.id("name")).getText());}
+    @Then("^I see feedback age: \"([^\"]*)\"$")
+    public void iSeeFeedbackAge(String age) throws Throwable {
+        assertEquals(age,driver.findElement(By.id("age")).getText());}
+
+// Task1features ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//    error cases Scenaroi Uotline
+
+    @Given("^I am on age page error cases$")
+    public void iAmOnPageErrorCases() throws Throwable {
+    driver.get("https://kristinek.github.io/site/tasks/enter_a_number");}
+
+    @When("^I enter number error case: \"([^\"]*)\"$")
+    public void iEnterNumberErrorCase(String number) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(number);}
+
+
+    @And("^I click submit error cases$")
+    public void iClickSubmitErrorCases() throws Throwable {
+        driver.findElement(By.cssSelector("body > div.w3-row > div > div > div.w3-container.w3-card-4 > button")).click();}
+
+    @Then("^I see message error cases: \"([^\"]*)\"$")
+    public void iSeeMessageErrorCase(String message) throws Throwable {
+        assertEquals(message, driver.findElement(By.id("ch1_error")).getText());}
+
+
+    //    correct number Scenario
+
+    @When("^I enter number correct case: (\\d+)$")
+    public void iEnterCorrectNumberCase(String number) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(number);}
+
+
+    @And("^I click submit correct cases$")
+    public void iClickSubmitCorrectCases() throws Throwable {
+        driver.findElement(By.cssSelector("body > div.w3-row > div > div > div.w3-container.w3-card-4 > button")).click();}
+
+    @Then("^I see message correct cases:\"([^\"]*)\"$")
+    public void iSeeMessageCorrectCase(String message) throws Throwable {
+         assertEquals(message,driver.switchTo().alert().getText());
+        }
+    @When("^I enter number correct case simple : \"([^\"]*)\"$")
+    public void iEnterCorrectNumberCaseSimple(String number) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(number);}
+
+
 }
