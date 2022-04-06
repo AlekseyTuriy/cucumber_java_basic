@@ -26,6 +26,24 @@ public class SampleSteps {
         driver.get("https://kristinek.github.io/site");
     }
 
+    @Given("^I am on the locators page$")
+    public void iAmonTheLocatorsPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/locators");
+    }
+    @Then("^I should see both locators page headers$")
+    public void iShouuldSeeBothLocatorsPageHeaders() throws Throwable {
+        assertEquals("Heading 1",
+                driver.findElement(By.id("heading_1")).getText());
+        assertEquals("Heading 2 text",
+                driver.findElement(By.id("heading_2")).getText());
+    }
+
+    @And("^Buttons in Locators page are clickable$")
+    public void buttonsInLocatorsPageAreClickible() throws Throwable {
+        assertTrue(driver.findElement(By.name("randomButton1")).isEnabled());
+        assertTrue(driver.findElement(By.id("buttonId")).isEnabled());
+    }
+
     @Then("^I should see home page header$")
     public void iShouldSeeHomePageHeader() throws Throwable {
         assertEquals("This is a home page",
