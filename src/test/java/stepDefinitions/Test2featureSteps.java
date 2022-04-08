@@ -138,7 +138,7 @@ public class Test2featureSteps {
 
     @And("^I see changed Mike name\"([^\"]*)\"$")
     public void iChangedMikeName(String name) throws Throwable {
-        assertNotEquals(name, driver.findElement(By.cssSelector("#person1 > div > span.name")).getAttribute("value")); }
+        assertNotEquals("Mike", driver.findElement(By.cssSelector("#person1 > div > span.name")).getAttribute("value")); }
 
 
 
