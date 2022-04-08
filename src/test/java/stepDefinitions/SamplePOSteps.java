@@ -48,10 +48,22 @@ public class SamplePOSteps {
     public void iSeeMessage(String message) throws Throwable {
         ageSubmittedPage.checkMessageText(message);
     }
+    @Then("^I see error:\"(.*)\" using PO$")
+    public void iSeeError(String error) throws Throwable {
+        agePage.checkErrorMessage(error);}
+
+    @And("^I remain in age page using PO$")
+    public void iRemainInAgePageUsingPO(){
+        assertEquals(agePage.getPageUrl(),driver.getCurrentUrl());
+
+    }
+
 
     @When("^I enter values using PO:$")
     public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
         agePage.enterName(valuesToEnter.get("name"));
         agePage.enterAge(valuesToEnter.get("age"));
     }
+
+
 }
